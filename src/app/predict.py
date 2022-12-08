@@ -9,6 +9,8 @@ import numpy as np
 import streamlit as st
 import pickle
 from nltk.stem import WordNetLemmatizer
+from PIL import Image
+
 lemma = WordNetLemmatizer()
 
 model = tf.keras.models.load_model('D:/movie-analysis-streamlit/data/model')
@@ -50,6 +52,10 @@ def get_sentiment_prediction():
         st.subheader("Positive Review")
     else:
         st.subheader("Negative Review")
+    
+    image = Image.open('D:/movie-analysis-streamlit/images/training.jpg')
+    st.image(image, caption='Training')
+    st.write("Acuuracy over the test set is : 86.6%" )
 
 
 def preprocessing(data):

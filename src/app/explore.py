@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 from predict import preprocessing
+from text_p import text_processing
+from PIL import Image
+
 pd.set_option("display.max_colwidth", 200)
 
 @st.cache
@@ -28,12 +31,15 @@ def explore():
         if not st.sidebar.checkbox("Hide dataframe"):
             placeholder.table(df[df['sentiment'] == 'positive'].head(5))
 
+    image = Image.open('D:/BTL WEB/SentimentAnalysis/images/Negative vs Positive.png')
+    st.image(image, caption='Length of Negative Movie Reviews vs Length of Positive Movie Reviews')
+    
     with st.expander('See Text Processing'):
         my_slider_val = st.slider('Index of Review Text', 1, 40000)
         st.write("Before Processing")
         st.write(df['review'].iloc[my_slider_val-1])
         if st.checkbox("Process Text Data"):
-            processed = preprocessing(df['review'].iloc[my_slider_val-1])
+            processed = text_processing(df['review'].iloc[my_slider_val-1])
             st.write("After Processing :")
             st.write(" ".join(processed))
 
